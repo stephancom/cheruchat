@@ -20,4 +20,19 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  event_type_count:
+    comment:
+      one: "1 comment"
+      other: "%{count} comments"
+    enter_room:
+      one: "1 person entered"
+      other: "%{count} people entered"
+    leave_room:
+      one: "1 person left"
+      other: "%{count} people left"
+    high_five:
+      one: "1 person high-fived"
+      other: "%{count} people high-fived"
+    high_five_other:
+      one: "1 other person"
+      other: "%{count} other people"

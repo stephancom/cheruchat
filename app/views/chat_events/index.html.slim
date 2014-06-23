@@ -3,35 +3,33 @@ h1
   = ChatEvent.name.pluralize.titleize
   |  for room 
   = link_to @chat_room.name, @chat_room
+  - if @group_by and @group_by != 'none'
+    |  grouped by 
+    = @group_by
 
-table
-  thead
-    tr
-      th When
-      th Type
-      th Chat room
-      th User
-      th Target user
-      th Comment
-      th
-      th
-      th
+p
+  | Select granularity
+  - @group_options.each do |option|
+    '  | 
+    = link_to_if (@group_by != option), option, chat_room_chat_events_path(@chat_room, group_by: option)
 
-  tbody
-    - @chat_events.each do |chat_event|
-      tr
-        td = chat_event.created_at
-        td = chat_event.type
-        td = chat_event.chat_room_name
-        td = chat_event.user_name
-        td = chat_event.target_user_name if chat_event.respond_to?(:target_user)
-        td = chat_event.comment
-        td = link_to 'Show', [@chat_room, chat_event]
-        td = link_to 'Edit', edit_chat_room_chat_event_path(@chat_room, chat_event)
-        td = link_to 'Destroy', [@chat_room, chat_event], data: {:confirm => 'Are you sure?'}, :method => :delete
+
+- if @grouped_events
+  ul
+    - @grouped_events.each do |period, events|
+      li
+        = period
+        ul
+          - events.group_by { |event| event.type }.each do |type, events|
+            p
+              = t(type.underscore, scope: :event_type_count, count: events.map { |event| event.user_id }.uniq.count)
+              - if type=="HighFive"
+                '  
+                - high_five_count = events.map { |event| event.target_user_id }.uniq.count
+                = t('event_type_count.high_five_other', count: high_five_count)
+- else
+  ul= render partial: 'chat_events/chat_event', collection: @chat_events
 
 br
 
-= link_to 'New Chat event', new_chat_room_chat_event_path(@chat_room)
-'  |
 = link_to "Back to #{@chat_room.name}", @chat_room
