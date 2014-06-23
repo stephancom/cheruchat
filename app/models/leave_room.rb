@@ -1,9 +1,9 @@
 class LeaveRoom < ChatEvent
-#   after_create :remove_user_from_room
+  after_create :remove_user_from_room
 
-# private
+private
   
-#   def remove_user_from_room
-#     chat_room.users.delete(user)
-#   end  
+  def remove_user_from_room
+    chat_room.users.delete(user)
+  end
 end

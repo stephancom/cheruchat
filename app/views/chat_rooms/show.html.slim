@@ -8,6 +8,25 @@ p
   strong Users:
   ul= render @chat_room.users
 
+p
+  strong Actions:
+- if user_signed_in?
+  - if @chat_room.users.include? current_user # TODO can?(:enter, @chat_room) etc
+    ul
+      li= button_to "Leave Room", leave_chat_room_path(@chat_room), method: :delete
+      li
+        | comment
+        = simple_form_for @chat_room.comments.build, url: comment_chat_room_path(@chat_room) do |f|
+          = f.input :comment
+          = f.button :submit
+      li 
+        | high_five
+        - @chat_room.users.each do |user|
+          - next if user == current_user
+          = button_to "High-Five #{user.name}", high_five_chat_room_path(@chat_room, target_user_id: user)
+  - else
+    p= button_to "Enter Room", enter_chat_room_path(@chat_room)
+
 = link_to 'Chat Events (temporary)', chat_room_chat_events_path(@chat_room)
 '|
 = link_to 'Edit', edit_chat_room_path(@chat_room)

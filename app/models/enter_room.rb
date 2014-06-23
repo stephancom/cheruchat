@@ -1,9 +1,9 @@
 class EnterRoom < ChatEvent
-#   after_create :add_user_to_room
+  after_create :add_user_to_room
 
-# private
+private
   
-#   def add_user_to_room
-#     chat_room.users << user      
-#   end  
+  def add_user_to_room
+    chat_room.users << user
+  end  
 end

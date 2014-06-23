@@ -1,5 +1,5 @@
 class ChatRoomsController < ApplicationController
-  before_action :set_chat_room, only: [:show, :edit, :update, :destroy]
+  before_action :set_chat_room, except: [:index, :new, :create]
 
   # GET /chat_rooms
   # GET /chat_rooms.json
@@ -59,6 +59,26 @@ class ChatRoomsController < ApplicationController
       format.html { redirect_to chat_rooms_url, notice: 'Chat room was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def enter
+    @chat_room.enter_rooms.create(user: current_user)
+    redirect_to @chat_room
+  end
+
+  def leave
+    @chat_room.leave_rooms.create(user: current_user)
+    redirect_to @chat_room
+  end
+
+  def high_five
+    @chat_room.high_fives.create(user: current_user, target_user_id: params[:target_user_id])
+    redirect_to @chat_room
+  end
+
+  def comment
+    @chat_room.comments.create(user: current_user, comment: params[:comment][:comment])
+    redirect_to @chat_room
   end
 
   private

@@ -18,7 +18,7 @@ table
         td = chat_event.type
         td = chat_event.chat_room_name
         td = chat_event.user_name
-        td = chat_event.target_user if chat_event.respond_to?(:target_user)
+        td = chat_event.target_user_name if chat_event.respond_to?(:target_user)
         td = chat_event.comment
         td = link_to 'Show', [@chat_room, chat_event]
         td = link_to 'Edit', edit_chat_room_chat_event_path(@chat_room, chat_event)
