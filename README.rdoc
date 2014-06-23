@@ -3,4 +3,5 @@
 * Live updating with PrivatePub
 * Access control
 * Admins - ability to boot users, etc
-
+* Styling
+* friendly id's for chat rooms
