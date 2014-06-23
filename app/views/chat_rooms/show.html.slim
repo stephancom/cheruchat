@@ -4,6 +4,12 @@ p
   strong Name:
   = @chat_room.name
 
+p
+  strong Users:
+  ul= render @chat_room.users
+
+= link_to 'Chat Events (temporary)', chat_room_chat_events_path(@chat_room)
+'|
 = link_to 'Edit', edit_chat_room_path(@chat_room)
 '|
 = link_to 'Back', chat_rooms_path
