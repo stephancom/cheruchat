@@ -8,4 +8,6 @@ class ChatEvent < ActiveRecord::Base
 
   EVENT_TYPES = %w(EnterRoom LeaveRoom HighFive Comment)
   validate :type, inclusion: {in: EVENT_TYPES}
+
+  default_scope -> {order('created_at ASC')}
 end

@@ -1,8 +1,13 @@
-h1 Listing chat_events
+h1 
+  Listing
+  = ChatEvent.name.pluralize.titleize
+  |  for room 
+  = link_to @chat_room.name, @chat_room
 
 table
   thead
     tr
+      th When
       th Type
       th Chat room
       th User
@@ -15,6 +20,7 @@ table
   tbody
     - @chat_events.each do |chat_event|
       tr
+        td = chat_event.created_at
         td = chat_event.type
         td = chat_event.chat_room_name
         td = chat_event.user_name
@@ -27,3 +33,5 @@ table
 br
 
 = link_to 'New Chat event', new_chat_room_chat_event_path(@chat_room)
+'  |
+= link_to "Back to #{@chat_room.name}", @chat_room

@@ -13,9 +13,11 @@ p
   strong Users:
   ul= render @chat_room.users
 
+h4 Activity
+ul= render partial: 'chat_events/chat_event', collection: @chat_events
+
 - if @chat_room.users.include? current_user # TODO can?(:enter, @chat_room) etc
   p
-    strong Actions:
     = simple_form_for @chat_room.comments.build, url: comment_chat_room_path(@chat_room) do |f|
       = f.input :comment
       = f.button :submit
