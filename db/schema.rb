@@ -11,10 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140623045739) do
+ActiveRecord::Schema.define(version: 20140623050818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "chat_events", force: true do |t|
+    t.string   "type"
+    t.integer  "chat_room_id"
+    t.integer  "user_id"
+    t.integer  "target_user_id"
+    t.string   "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "chat_events", ["chat_room_id"], name: "index_chat_events_on_chat_room_id", using: :btree
+  add_index "chat_events", ["target_user_id"], name: "index_chat_events_on_target_user_id", using: :btree
+  add_index "chat_events", ["user_id"], name: "index_chat_events_on_user_id", using: :btree
 
   create_table "chat_rooms", force: true do |t|
     t.string   "name"

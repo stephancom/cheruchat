@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong Type:
+  = @chat_event.type
+p
+  strong Chat room:
+  = @chat_event.chat_room
+p
+  strong User:
+  = @chat_event.user
+p
+  strong Target user:
+  = @chat_event.target_user
+p
+  strong Comment:
+  = @chat_event.comment
+
+= link_to 'Edit', edit_chat_room_chat_event_path(@chat_room, @chat_event)
+'|
+= link_to 'Back', chat_room_chat_events_path(@chat_room)

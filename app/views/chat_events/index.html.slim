@@ -1,0 +1,29 @@
+h1 Listing chat_events
+
+table
+  thead
+    tr
+      th Type
+      th Chat room
+      th User
+      th Target user
+      th Comment
+      th
+      th
+      th
+
+  tbody
+    - @chat_events.each do |chat_event|
+      tr
+        td = chat_event.type
+        td = chat_event.chat_room_name
+        td = chat_event.user_name
+        td = chat_event.target_user if chat_event.respond_to?(:target_user)
+        td = chat_event.comment
+        td = link_to 'Show', [@chat_room, chat_event]
+        td = link_to 'Edit', edit_chat_room_chat_event_path(@chat_room, chat_event)
+        td = link_to 'Destroy', [@chat_room, chat_event], data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Chat event', new_chat_room_chat_event_path(@chat_room)
